@@ -15,7 +15,7 @@ export default function App() {
   const [contacts, setContacts] = useState(() => {
     return parsedContacts ?? initialContacts;
   });
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
   useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -49,13 +49,13 @@ export default function App() {
     );
   };
 
-  const getFilteredContacts = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+  // const getFilteredContacts = () => {
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase())
+  //   );
+  // };
 
-  const filteredContacts = getFilteredContacts();
+  // const filteredContacts = getFilteredContacts();
 
   return (
     <>
@@ -63,9 +63,10 @@ export default function App() {
         <h1 className={css.title}>Phonebook</h1>
         <ContactForm onSubmit={addNewContact} />
         <h2 className={css.title}>Contacts</h2>
-        <Filter value={filter} onFilterChange={setFilter} />
+        {/* <Filter value={filter} onFilterChange={setFilter} /> */}
+        <Filter />
         <ContactList
-          contacts={filteredContacts}
+          // contacts={filteredContacts}
           onContactDelete={deleteContact}
         />
       </section>
