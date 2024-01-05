@@ -1,14 +1,12 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import css from './ContactList.module.css';
+import { useSelector } from 'react-redux';
 
+import { getContacts, getFilterValue } from '../../redux/selectors';
 import ContactItem from '../ContactItem';
 
-import { useSelector } from 'react-redux';
-import { getContacts, getFilterValue } from '../../redux/selectors';
+import css from './ContactList.module.css';
 
-// const ContactList = ({ contacts, onContactDelete }) => {
-const ContactList = ({ onContactDelete }) => {
+const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilterValue);
 
@@ -28,22 +26,10 @@ const ContactList = ({ onContactDelete }) => {
           id={contact.id}
           name={contact.name}
           number={contact.number}
-          onContactDelete={onContactDelete}
         />
       ))}
     </ul>
   );
 };
-
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.exact({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       number: PropTypes.string.isRequired,
-//     })
-//   ),
-//   onContactDelete: PropTypes.func.isRequired,
-// };
 
 export default ContactList;

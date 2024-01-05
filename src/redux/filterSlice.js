@@ -10,7 +10,7 @@ const filterSlice = createSlice({
   },
 });
 
-console.log(filterSlice);
+// console.log(filterSlice);
 
 export const { setFilter } = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;

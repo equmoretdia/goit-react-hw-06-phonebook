@@ -1,20 +1,20 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import css from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { setFilter } from '../../redux/filterSlice';
 import { getFilterValue } from '../../redux/selectors';
 
-// export default function Filter({ value, onFilterChange }) {
-export default function Filter() {
+import css from './Filter.module.css';
+
+const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(getFilterValue);
-  console.log(filter);
+
   const handleChange = e => {
     const { value } = e.currentTarget;
     dispatch(setFilter(value));
-    // onFilterChange(value);
   };
+
   return (
     <div className={css.wrapper}>
       <label className={css.label}>
@@ -29,9 +29,6 @@ export default function Filter() {
       </label>
     </div>
   );
-}
+};
 
-// Filter.propTypes = {
-//   value: PropTypes.string.isRequired,
-//   onFilterChange: PropTypes.func.isRequired,
-// };
+export default Filter;

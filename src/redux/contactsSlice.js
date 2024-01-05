@@ -1,6 +1,7 @@
-import initialContacts from 'data/contacts.json';
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid/non-secure';
+import { toast } from 'react-toastify';
+import initialContacts from 'data/contacts.json';
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -13,16 +14,29 @@ const contactsSlice = createSlice({
         name,
         number,
       };
-      state.push(newContact);
+      if (
+        state.some(
+          contact =>
+            contact.name.toLowerCase() === newContact.name.toLowerCase().trim()
+        )
+      ) {
+        toast.warn(`${newContact.name} is already in your contacts`, {
+          position: 'top-right',
+          theme: 'colored',
+        });
+      } else {
+        state.push(newContact);
+      }
     },
     deleteContact(state, action) {
       const { id } = action.payload;
-      state.filter(contact => contact.id !== id);
+      //   console.log(action.payload);
+      return state.filter(contact => contact.id !== id);
     },
   },
 });
 
-console.log(contactsSlice);
+// console.log(contactsSlice);
 
 export const { addNewContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
