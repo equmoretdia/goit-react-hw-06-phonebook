@@ -33,8 +33,8 @@ const ContactForm = () => {
       });
     } else {
       dispatch(addNewContact(state));
+      formReset();
     }
-    formReset();
   };
 
   const formReset = () => {
