@@ -8,7 +8,6 @@ import css from './ContactItem.module.css';
 
 const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
-  // console.log(id);
   return (
     <li className={css.item}>
       <p>

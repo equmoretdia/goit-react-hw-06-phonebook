@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { nanoid } from 'nanoid/non-secure';
-import { toast } from 'react-toastify';
+
 import initialContacts from 'data/contacts.json';
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: initialContacts,
+  initialState: { list: initialContacts },
   reducers: {
     addNewContact(state, action) {
       const { name, number } = action.payload;
@@ -14,29 +16,26 @@ const contactsSlice = createSlice({
         name,
         number,
       };
-      if (
-        state.some(
-          contact =>
-            contact.name.toLowerCase() === newContact.name.toLowerCase().trim()
-        )
-      ) {
-        toast.warn(`${newContact.name} is already in your contacts`, {
-          position: 'top-right',
-          theme: 'colored',
-        });
-      } else {
-        state.push(newContact);
-      }
+      //   state.list = [...state.list, newContact];
+      state.list.push(newContact);
     },
     deleteContact(state, action) {
       const { id } = action.payload;
-      //   console.log(action.payload);
-      return state.filter(contact => contact.id !== id);
+      state.list = state.list.filter(contact => contact.id !== id);
     },
   },
 });
 
 // console.log(contactsSlice);
+//start
+const persistConfig = {
+  key: 'contacts',
+  storage,
+};
 
 export const { addNewContact, deleteContact } = contactsSlice.actions;
-export const contactsReducer = contactsSlice.reducer;
+
+export const contactsReducer = persistReducer(
+  persistConfig,
+  contactsSlice.reducer
+);

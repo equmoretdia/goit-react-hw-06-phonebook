@@ -8,8 +8,9 @@ import css from './ContactList.module.css';
 
 const ContactList = () => {
   const contacts = useSelector(getContacts);
+  // console.log(contacts);
   const filter = useSelector(getFilterValue);
-
+  // console.log(filter);
   const getFilteredContacts = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
